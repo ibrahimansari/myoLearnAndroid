@@ -4,8 +4,8 @@
     <string name="recording_start">Record</string>
     <string name="recording_stop">Stop</string>
     <string-array name="charts">
-        <item>Accelerometer</item>
-        <item>Gyroscope</item>
-        <item>Orientation</item>
+        <item>Accelerometer Data</item>
+        <item>Gyroscope Data</item>
+        <item>Orientation Data</item>
     </string-array>
 </resources>
