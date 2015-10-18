@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private void stopRecording() {
         mRecorder.stop();
         mButtonRecord.setText(R.string.recording_start);
-
+        // Add firebase upload here...
         mLineChart.reset();
     }
 

@@ -25,16 +25,17 @@ public class MyoRecorder extends AbstractDeviceListener {
 
     public void start() {
         hub.addListener(this);
+        defUser.child("connected").setValue(true);
         recording = true;
     }
 
     public void stop() {
         hub.removeListener(this);
+        defUser.child("connected").setValue(false);
         recording = false;
     }
 
     public boolean isRecording() {
-        defUser.child("connected").setValue(true);
         return recording;
     }
 
