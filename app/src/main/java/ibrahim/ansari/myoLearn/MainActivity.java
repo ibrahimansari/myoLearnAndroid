@@ -1,5 +1,6 @@
 package ibrahim.ansari.myoLearn;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
 
         mainRef = new Firebase("https://myosport.firebaseio.com/");
+
+        startActivity(new Intent(this, LoginActivity.class));
 
         Hub hub = Hub.getInstance();
          if (!hub.init(this)) {
