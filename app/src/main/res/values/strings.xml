@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">myoLearnGraphs</string>
-    <string name="status_connected">Connection: Successful</string>
-    <string name="status_disconnected">Connection: Failed</string>
-    <string name="recording_start">Started Recording</string>
-    <string name="recording_stop">Stopped Recording</string>
+    <string name="button_text">Record</string>
+    <string name="recording_start">Record</string>
+    <string name="recording_stop">Stop</string>
     <string-array name="charts">
         <item>Accelerometer</item>
         <item>Gyroscope</item>

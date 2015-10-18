@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
+//import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -24,7 +24,7 @@ import butterknife.OnItemSelected;
 
 public class MainActivity extends AppCompatActivity {
 
-    @InjectView(R.id.value_status) TextView mTextViewValueStatus;
+//  @InjectView(R.id.value_status) TextView mTextViewValueStatus;
 
     @InjectView(R.id.button_record) Button mButtonRecord;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MyoRecorder mRecorder;
 
-    static Firebase fbRef = null;
+    static Firebase mainRef = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         Firebase.setAndroidContext(this);
 
-        fbRef = new Firebase("https://myosport.firebaseio.com/");
+        mainRef = new Firebase("https://myosport.firebaseio.com/");
 
         Hub hub = Hub.getInstance();
          if (!hub.init(this)) {
@@ -103,14 +103,13 @@ public class MainActivity extends AppCompatActivity {
         mButtonRecord.setText(R.string.recording_start);
 
         mLineChart.reset();
-
-        setChartData();
-        displayData();
     }
 
     private void startRecording() {
         mRecorder.reset();
         mRecorder.start();
+        setChartData();
+        displayData();
         mButtonRecord.setText(R.string.recording_stop);
     }
 
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             mLineChart.addGyroscopeData(gyro);
         }
 
-        for (Quaternion rotation : mRecorder.getOrienationData()) {
+        for (Quaternion rotation : mRecorder.getOrientationData()) {
             mLineChart.addOrientationData(rotation);
         }
     }
@@ -165,13 +164,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onConnect(Myo myo, long timestamp) {
-            mTextViewValueStatus.setText(R.string.status_connected);
+            Toast.makeText(getApplicationContext(), "Myo Connection Established", Toast.LENGTH_SHORT).show();
             mButtonRecord.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void onDisconnect(Myo myo, long timestamp) {
-            mTextViewValueStatus.setText(R.string.status_disconnected);
+            Toast.makeText(getApplicationContext(), "Myo Connection Lost", Toast.LENGTH_SHORT).show();
             mButtonRecord.setVisibility(View.INVISIBLE);
         }
     }

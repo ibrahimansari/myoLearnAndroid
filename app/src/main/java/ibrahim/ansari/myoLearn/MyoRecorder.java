@@ -15,9 +15,9 @@ public class MyoRecorder extends AbstractDeviceListener {
 
     private boolean recording = false;
     private List<Vector3> accelerometerData = new ArrayList<>();
-    private List<Quaternion> orienationData = new ArrayList<>();
+    private List<Quaternion> orientationData = new ArrayList<>();
     private List<Vector3> gyroscopeData = new ArrayList<>();
-    private Firebase defUser = MainActivity.fbRef.child("duttaoindril");
+    private Firebase defUser = MainActivity.mainRef.child("duttaoindril");
 
     public MyoRecorder(Hub hub) {
         this.hub = hub;
@@ -40,7 +40,7 @@ public class MyoRecorder extends AbstractDeviceListener {
 
     public void reset() {
         accelerometerData.clear();
-        orienationData.clear();
+        orientationData.clear();
         gyroscopeData.clear();
     }
 
@@ -51,7 +51,7 @@ public class MyoRecorder extends AbstractDeviceListener {
 
     @Override
     public void onOrientationData(Myo myo, long timestamp, Quaternion rotation) {
-        orienationData.add(rotation);
+        orientationData.add(rotation);
     }
 
     @Override
@@ -63,8 +63,8 @@ public class MyoRecorder extends AbstractDeviceListener {
         return accelerometerData;
     }
 
-    public List<Quaternion> getOrienationData() {
-        return orienationData;
+    public List<Quaternion> getOrientationData() {
+        return orientationData;
     }
 
     public List<Vector3> getGyroscopeData() {
