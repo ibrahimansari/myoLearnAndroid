@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         mainRef = new Firebase("https://myosport.firebaseio.com/");
 
-        startActivity(new Intent(this, LoginActivity.class));
-
         Hub hub = Hub.getInstance();
          if (!hub.init(this)) {
             Toast.makeText(this,"Could not init hub",Toast.LENGTH_SHORT).show();
