@@ -2,7 +2,6 @@ package ibrahim.ansari.myoLearn;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        accessPermissions();
+        accessLocation();
 
         ButterKnife.inject(this);
         Firebase.setAndroidContext(this);
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         Hub hub = Hub.getInstance();
          if (!hub.init(this)) {
-            Toast.makeText(this,"Could not init hub",Toast.LENGTH_SHORT).show();
+             Toast.makeText(this, "Could not init Myo hub", Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -64,9 +63,9 @@ public class MainActivity extends AppCompatActivity {
         hub.attachToAdjacentMyo();
     }
 
-    @Permission({"android.permission.BLUETOOTH", "android.permission.ACCESS_FINE_LOCATION"})
-    public void accessPermissions() {
-        // Ask for them permissions
+    @Permission({"android.permission.ACCESS_FINE_LOCATION"})
+    public void accessLocation() {
+        // Ask for them permissions tho!!
     }
 
     private void createChartTypeSpinner() {
@@ -171,13 +170,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onConnect(Myo myo, long timestamp) {
             Toast.makeText(getApplicationContext(), "Myo Connection Established", Toast.LENGTH_SHORT).show();
-            mButtonRecord.setVisibility(View.VISIBLE);
+            mButtonRecord.setClickable(true);
         }
 
         @Override
         public void onDisconnect(Myo myo, long timestamp) {
             Toast.makeText(getApplicationContext(), "Myo Connection Lost", Toast.LENGTH_SHORT).show();
-            mButtonRecord.setVisibility(View.INVISIBLE);
+            mButtonRecord.setClickable(false);
         }
     }
 }
