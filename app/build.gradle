@@ -35,6 +35,9 @@ dependencies {
         maven {
             url '/Users/ibrahim/Desktop/SDK/myo-android-sdk-0.10.0/myorepository'
         }
+        maven {
+            url "http://dl.bintray.com/mobmead/EasyMPermission"
+        }
     }
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -44,4 +47,6 @@ dependencies {
     compile 'org.quanqi:mpandroidchart:1.7.5'
     compile 'com.thalmic:myosdk:0.10.+@aar'
     compile files('libs/firebase-client-android-2.4.0.jar')
+    provided 'com.mobmead:easympermission:1.0.0'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 }

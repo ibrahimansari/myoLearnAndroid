@@ -1,16 +1,16 @@
 package ibrahim.ansari.myoLearn;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-//import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.mobmead.easympermission.Permission;
+import com.mobmead.easympermission.RuntimePermission;
 import com.thalmic.myo.AbstractDeviceListener;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
@@ -22,10 +22,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-
+@RuntimePermission
 public class MainActivity extends AppCompatActivity {
-
-//  @InjectView(R.id.value_status) TextView mTextViewValueStatus;
 
     @InjectView(R.id.button_record) Button mButtonRecord;
 
@@ -43,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        accessPermissions();
 
         ButterKnife.inject(this);
         Firebase.setAndroidContext(this);
@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
         createChartTypeSpinner();
 
         hub.attachToAdjacentMyo();
+    }
+
+    @Permission({"android.permission.BLUETOOTH", "android.permission.ACCESS_FINE_LOCATION"})
+    public void accessPermissions() {
+        // Ask for them permissions
     }
 
     private void createChartTypeSpinner() {
