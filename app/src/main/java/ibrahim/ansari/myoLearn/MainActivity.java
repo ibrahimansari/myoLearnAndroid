@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         accessLocation();
 
         ButterKnife.inject(this);
-        Firebase.setAndroidContext(this);
 
         mainRef = new Firebase("https://myosport.firebaseio.com/");
 
