@@ -1,4 +1,4 @@
-package ibrahim.ansari.myoLearn;
+package ibrahim.ansari.LearnMotion;
 
 import com.firebase.client.Firebase;
 import com.thalmic.myo.AbstractDeviceListener;
@@ -17,7 +17,7 @@ public class MyoRecorder extends AbstractDeviceListener {
     private List<Vector3> accelerometerData = new ArrayList<>();
     private List<Quaternion> orientationData = new ArrayList<>();
     private List<Vector3> gyroscopeData = new ArrayList<>();
-    private Firebase defUser = MainActivity.mainRef.child("duttaoindril");
+    private Firebase defUser = Session.mainRef.child("duttaoindril");
 
     public MyoRecorder(Hub hub) {
         this.hub = hub;

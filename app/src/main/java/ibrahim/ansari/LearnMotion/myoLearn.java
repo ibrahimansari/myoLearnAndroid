@@ -1,4 +1,4 @@
-package ibrahim.ansari.myoLearn;
+package ibrahim.ansari.LearnMotion;
 
 import android.app.Application;
 

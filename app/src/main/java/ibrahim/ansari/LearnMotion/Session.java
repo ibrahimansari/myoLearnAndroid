@@ -1,4 +1,4 @@
-package ibrahim.ansari.myoLearn;
+package ibrahim.ansari.LearnMotion;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +8,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
-import com.mobmead.easympermission.Permission;
-import com.mobmead.easympermission.RuntimePermission;
 import com.thalmic.myo.AbstractDeviceListener;
 import com.thalmic.myo.Hub;
 import com.thalmic.myo.Myo;
@@ -21,8 +19,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-@RuntimePermission
-public class MainActivity extends AppCompatActivity {
+public class Session extends AppCompatActivity {
 
     @InjectView(R.id.button_record) Button mButtonRecord;
 
@@ -39,13 +36,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        accessLocation();
+        setContentView(R.layout.activity_session);
 
         ButterKnife.inject(this);
         Firebase.setAndroidContext(this);
-        mainRef = new Firebase("https://myosport.firebaseio.com/");
+        mainRef = new Firebase("https://myosport.firebaseio.com/duttaoindril/recordings");
 
         Hub hub = Hub.getInstance();
          if (!hub.init(this)) {
@@ -60,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
         createChartTypeSpinner();
 
         hub.attachToAdjacentMyo();
-    }
-
-    @Permission({"android.permission.ACCESS_FINE_LOCATION"})
-    public void accessLocation() {
-        // Ask for them permissions tho!!
     }
 
     private void createChartTypeSpinner() {
@@ -97,6 +87,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("unused")
+    @OnClick(R.id.button_save)
+    public void onClickSave() {
+        MyoData data = new MyoData();
+        double[] accelX = new double[mRecorder.getAccelerometerData().size()];
+        double[] accelY = new double[mRecorder.getAccelerometerData().size()];
+        double[] accelZ = new double[mRecorder.getAccelerometerData().size()];
+        double[] orient = new double[mRecorder.getOrientationData().size()];
+
+        for (int i = 0; i < mRecorder.getAccelerometerData().size(); i++) {
+            accelX[i] = mRecorder.getAccelerometerData().get(i).x();
+            accelY[i] = mRecorder.getAccelerometerData().get(i).y();
+            accelZ[i] = mRecorder.getAccelerometerData().get(i).z();
+        }
+        orient[0] = mRecorder.getOrientationData().get(0).w();
+        orient[1] = mRecorder.getOrientationData().get(0).x();
+        orient[2] = mRecorder.getOrientationData().get(0).y();
+        orient[3] = mRecorder.getOrientationData().get(0).z();
+
+        data.setName("Test");
+        data.setAccelStreamx(accelX);
+        data.setAccelStreamy(accelY);
+        data.setAccelStreamz(accelZ);
+        data.setOrientationoffset(orient);
+    }
+
+    @SuppressWarnings("unused")
     @OnItemSelected(R.id.chart_chooser)
     public void onChartSelected(int position) {
         displayData();
@@ -105,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
     private void stopRecording() {
         mRecorder.stop();
         mButtonRecord.setText(R.string.recording_start);
-        // Add firebase upload here... maybe some day i will idk
         mLineChart.reset();
         setChartData();
         displayData();

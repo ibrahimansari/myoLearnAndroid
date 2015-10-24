@@ -1,4 +1,4 @@
-package ibrahim.ansari.myoLearn;
+package ibrahim.ansari.LearnMotion;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,7 +12,6 @@ import com.thalmic.myo.Quaternion;
 import com.thalmic.myo.Vector3;
 
 import java.util.ArrayList;
-
 
 public class MyoLineChart extends LineChart {
     private LineData mAccelerometerLineData;
