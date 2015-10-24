@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         accessLocation();
 
         ButterKnife.inject(this);
-
+        Firebase.setAndroidContext(this);
         mainRef = new Firebase("https://myosport.firebaseio.com/");
 
         Hub hub = Hub.getInstance();
@@ -105,15 +105,15 @@ public class MainActivity extends AppCompatActivity {
     private void stopRecording() {
         mRecorder.stop();
         mButtonRecord.setText(R.string.recording_start);
-        // Add firebase upload here...
+        // Add firebase upload here... maybe some day i will idk
         mLineChart.reset();
+        setChartData();
+        displayData();
     }
 
     private void startRecording() {
         mRecorder.reset();
         mRecorder.start();
-        setChartData();
-        displayData();
         mButtonRecord.setText(R.string.recording_stop);
     }
 
