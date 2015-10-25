@@ -41,12 +41,11 @@ public class MyoComparer extends AbstractDeviceListener {
     //Init comparer function
     public void start(Quaternion oridata, ArrayList<Double> acceldatax, ArrayList<Double> acceldatay, ArrayList<Double> acceldataz) {
         hub.addListener(this);
-        stagea = true;
-        stageb = false;
-        fireOriData[0] = oridata.w;
-        fireOriData[1] = oridata.x;
-        fireOriData[2] = oridata.y;
-        fireOriData[3] = oridata.z;
+        next = false;
+        fireOriData[0] = oridata.w();
+        fireOriData[1] = oridata.x();
+        fireOriData[2] = oridata.y();
+        fireOriData[3] = oridata.z();
         fireAccelDatax = acceldatax;
         fireAccelDatay = acceldatay;
         fireAccelDataz = acceldataz;
@@ -59,10 +58,10 @@ public class MyoComparer extends AbstractDeviceListener {
     @Override
     public void onOrientationData(Myo myo, long timestamp, Quaternion oridata) {
         if(!next) {
-            orientationData[0] = oridata.w;
-            orientationData[1] = oridata.x;
-            orientationData[2] = oridata.y;
-            orientationData[3] = oridata.z;
+            orientationData[0] = oridata.w();
+            orientationData[1] = oridata.x();
+            orientationData[2] = oridata.y();
+            orientationData[3] = oridata.z();
             matching = true;
             for (int i = 0; i < orientationData.length; i++)
                 if((orientationData[i] - fireOriData[i]) < -check || (orientationData[i] - fireOriData[i]) > check)
