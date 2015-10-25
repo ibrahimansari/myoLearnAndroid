@@ -32,6 +32,8 @@ android {
 
 dependencies {
     repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/groups/public/" }
         maven {
             url '/Users/ibrahim/Desktop/SDK/myo-android-sdk-0.10.0/myorepository'
         }
@@ -46,6 +48,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'org.quanqi:mpandroidchart:1.7.5'
     compile 'com.thalmic:myosdk:0.10.+@aar'
+    compile 'com.getpebble:pebblekit:3.0.0@aar'
     compile files('libs/firebase-client-android-2.4.0.jar')
     provided 'com.mobmead:easympermission:1.0.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'

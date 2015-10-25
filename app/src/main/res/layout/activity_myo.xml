@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="ibrahim.ansari.LearnMotion.MyoActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_padding"
+                android:tag="Recordings"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:text="Recordings"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/text_size"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:background="@color/accent"
+                android:id="@+id/listTitle" />
+
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:background="@color/primary"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/plus" />
+
+</android.support.design.widget.CoordinatorLayout>

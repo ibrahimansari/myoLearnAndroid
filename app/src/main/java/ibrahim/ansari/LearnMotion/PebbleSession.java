@@ -22,13 +22,18 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class Session extends AppCompatActivity {
+public class PebbleSession extends AppCompatActivity {
 
-    @InjectView(R.id.button_record) Button mButtonRecord;
-    @InjectView(R.id.chart) MyoLineChart mLineChart;
-    @InjectView(R.id.chart_chooser) Spinner mSpinnerChartType;
-    @InjectView(R.id.button_save) Button mButtonSave;
-    @InjectView(R.id.button_compare) Button mButtonCompare;
+    @InjectView(R.id.button_record)
+    Button mButtonRecord;
+    @InjectView(R.id.chart)
+    MyoLineChart mLineChart;
+    @InjectView(R.id.chart_chooser)
+    Spinner mSpinnerChartType;
+    @InjectView(R.id.button_save)
+    Button mButtonSave;
+    @InjectView(R.id.button_compare)
+    Button mButtonCompare;
 
     private ConnectionListener mConnectionListener;
     private MyoRecorder mRecorder;
@@ -38,7 +43,7 @@ public class Session extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_session);
+        setContentView(R.layout.myo_session);
 
         ButterKnife.inject(this);
         Firebase.setAndroidContext(this);
@@ -48,8 +53,8 @@ public class Session extends AppCompatActivity {
         mButtonCompare.setEnabled(false);
 
         Hub hub = Hub.getInstance();
-         if (!hub.init(this)) {
-             Toast.makeText(this, "Could not init Myo hub", Toast.LENGTH_SHORT).show();
+        if (!hub.init(this)) {
+            Toast.makeText(this, "Could not init Myo hub", Toast.LENGTH_SHORT).show();
             finish();
         }
 

@@ -1,70 +1,44 @@
 package ibrahim.ansari.LearnMotion;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+public class MainActivity extends AppCompatActivity {
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-public class MainActivity extends ListActivity {
-
-    private Firebase mainRef = null;
-    private List<String> dataList = new ArrayList<>();
-    private BaseAdapter adapter;
+    private TextView title;
+    private Button pebButton, myoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Firebase.setAndroidContext(this);
-        mainRef = new Firebase("https://myosport.firebaseio.com/duttaoindril/recordings");
+        pebButton = (Button) findViewById(R.id.pebble_button);
+        myoButton = (Button) findViewById(R.id.myo_button);
 
-        mainRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    HashMap map = (HashMap) postSnapshot.getValue();
-                    Iterator it = map.entrySet().iterator();
-                    while (it.hasNext()) {
-                        Map.Entry pair = (Map.Entry) it.next();
-                        int i = 0;
-                        if (pair.getKey().equals("name")) {
-                            dataList.add(pair.getValue().toString());
-                        }
-                        it.remove(); // avoids a ConcurrentModificationException
-                    }
-                }
-            }
+        pebButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("The read failed: " + firebaseError.getMessage());
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), PebbleActivity.class);
+                startActivity(i);
             }
+
         });
 
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(this, R.layout.listview_item, R.id.action_name, dataList);
-        setListAdapter(myAdapter);
+        myoButton.setOnClickListener(new View.OnClickListener() {
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, Session.class));
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MyoActivity.class);
+                startActivity(i);
             }
+
         });
+
     }
 }
