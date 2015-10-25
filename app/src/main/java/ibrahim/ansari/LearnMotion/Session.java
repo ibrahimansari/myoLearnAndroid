@@ -34,6 +34,8 @@ public class Session extends AppCompatActivity {
 
     private MyoRecorder mRecorder;
 
+    private long timestamp = 0;
+
     static Firebase mainRef = null;
 
     @Override
@@ -83,20 +85,22 @@ public class Session extends AppCompatActivity {
     @OnClick(R.id.button_record)
     public void onClickRecord() {
         if (mRecorder.isRecording()) {
+            timestamp = System.currentTimeMillis() - timestamp;
             stopRecording();
         } else {
             startRecording();
+            timestamp = System.currentTimeMillis();
         }
     }
 
     @SuppressWarnings("unused")
     @OnClick(R.id.button_save)
     public void onClickSave() {
-        MyoData data = new MyoData();
         double[] accelX = new double[mRecorder.getAccelerometerData().size()];
         double[] accelY = new double[mRecorder.getAccelerometerData().size()];
         double[] accelZ = new double[mRecorder.getAccelerometerData().size()];
         double[] orient = new double[4];
+        Firebase pushRef = mainRef.push();
 
         for (int i = 0; i < mRecorder.getAccelerometerData().size(); i++) {
             accelX[i] = mRecorder.getAccelerometerData().get(i).x();
@@ -115,7 +119,17 @@ public class Session extends AppCompatActivity {
         dataFB.put("accelStreamz", accelZ);
         dataFB.put("orientationoffset", orient);
 
-        mainRef.push().setValue(dataFB);
+        pushRef.setValue(dataFB);
+
+        String key = mainRef.getKey();
+        Map<String, Object> nameFB = new HashMap<>();
+        Map<String, Object> timeFB = new HashMap<>();
+
+        nameFB.put("name", "Jagdrill");
+        timeFB.put("time", timestamp);
+
+        pushRef.updateChildren(nameFB);
+        pushRef.updateChildren(timeFB);
     }
 
     @SuppressWarnings("unused")
