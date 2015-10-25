@@ -130,6 +130,7 @@ public class MyoComparer extends AbstractDeviceListener {
                 }
                 if (count > firex.length) {
                     next = false;
+                    stop();
                 }
             }
         }
