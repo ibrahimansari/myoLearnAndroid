@@ -7,7 +7,6 @@ import com.thalmic.myo.Quaternion;
 import com.thalmic.myo.Vector3;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyoComparer extends AbstractDeviceListener {
     private final Hub hub;
@@ -67,8 +66,8 @@ public class MyoComparer extends AbstractDeviceListener {
                 if((orientationData[i] - fireOriData[i]) < -check || (orientationData[i] - fireOriData[i]) > check)
                     matching = false;
             if(matching) {
-                myo.vibrate("short");
-                myo.vibrate("short");
+                myo.vibrate(Myo.VibrationType.SHORT);
+                myo.vibrate(Myo.VibrationType.SHORT);
                 next = true;
             }
         }
@@ -85,9 +84,9 @@ public class MyoComparer extends AbstractDeviceListener {
     @Override
     public void onAccelerometerData(Myo myo, long timestamp, Vector3 accel) {
         if(next) {
-            accelerometerDatax.add(accel.x);
-            accelerometerDatay.add(accel.y);
-            accelerometerDataz.add(accel.z);
+            accelerometerDatax.add(accel.x());
+            accelerometerDatay.add(accel.y());
+            accelerometerDataz.add(accel.z());
             if(count % checkRate == 0 && count > 0) {
                 double[] firex = new double[fireAccelDatax.subList(0, count).size()];
                 for (int i = 0; i < firex.length; i++) {
@@ -117,16 +116,16 @@ public class MyoComparer extends AbstractDeviceListener {
                 dtw[1] = new DTW(firey, accy).warpingDistance;
                 dtw[2] = new DTW(firez, accz).warpingDistance;
                 if(dtw[0] > passVal) {
-                    myo.vibrate("short");
-                    myo.vibrate("long");
+                    myo.vibrate(Myo.VibrationType.SHORT);
+                    myo.vibrate(Myo.VibrationType.LONG);
                     //console.speak("You fucked up in the forward and backward direction");
                 } else if(dtw[1] > passVal) {
-                    myo.vibrate("short");
-                    myo.vibrate("long");
+                    myo.vibrate(Myo.VibrationType.SHORT);
+                    myo.vibrate(Myo.VibrationType.LONG);
                     //console.speak("You fucked up in the left and right direction");
                 } else if(dtw[2] > passVal) {
-                    myo.vibrate("short");
-                    myo.vibrate("long");
+                    myo.vibrate(Myo.VibrationType.SHORT);
+                    myo.vibrate(Myo.VibrationType.LONG);
                     //console.speak("You fucked up in the up and down direction");
                 }
                 if (count > firex.length) {
