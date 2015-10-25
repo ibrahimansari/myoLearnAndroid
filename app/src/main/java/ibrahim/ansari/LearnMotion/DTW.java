@@ -1,9 +1,11 @@
 package ibrahim.ansari.LearnMotion;
 
+import java.util.ArrayList;
+
 public class DTW {
 
-    protected float[] seq1;
-    protected float[] seq2;
+    protected double[] seq1;
+    protected double[] seq2;
     protected int[][] warpingPath;
 
     protected int n;
@@ -12,7 +14,7 @@ public class DTW {
 
     protected double warpingDistance;
 
-    public DTW(float[] sample, float[] templete) {
+    public DTW(double[] sample, double[] templete) {
         seq1 = sample;
         seq2 = templete;
 
@@ -121,4 +123,77 @@ public class DTW {
         }
         return index;
     }
+    /*
+    public boolean readyToCompare() {
+        double[] recordedOri = {0.5,0.5,0.5,0.5};
+        double[] currentOri = {0,0,0,0};
+        boolean matching = false;
+        double check = 0.1;
+        while(true) { // Simulate the Myo Orientation Listener
+            currentOri[0] = data["w"]; // Simulate currentOri getting current orientation data from Myo
+            currentOri[1] = data["x"]; // Simulate currentOri getting current orientation data from Myo
+            currentOri[2] = data["y"]; // Simulate currentOri getting current orientation data from Myo
+            currentOri[3] = data["z"]; // Simulate currentOri getting current orientation data from Myo
+            matching = true;
+            for (int i = 0; i < currentOri.length; i++)
+                if((currentOri[i] - recordedOri[i]) < -check || (currentOri[i] - recordedOri[i]) > check)
+                    matching = false;
+            if(matching) {
+                while(false); // Simulate Orientation Data getting being turned off
+                vibrate(); vibrate(); // Simulate two short vibrations from Myo
+                return matching;
+            }
+        }
+    }
+
+    if(readyToCompare())
+        compare();
+
+    ArrayList<Double> recaccelx = new ArrayList<Double>(); //simulate getting a previously done recording's accelstreamx
+    ArrayList<Double> recaccely = new ArrayList<Double>(); //simulate getting a previously done recording's accelstreamy
+    ArrayList<Double> recaccelz = new ArrayList<Double>(); //simulate getting a previously done recording's accelstreamz
+
+    int total = 1; // The number of times users called comparing
+    int passed = 0; // The number of times they used got a successful recording done
+    int checkRate = 50; // How often in milliseconds
+    double passVal = 0.6; // The amount the dtw must yeild below to pass the test
+
+    public boolean compare() {
+        ArrayList<Double> accelx = new ArrayList<Double>(); //Local recording to do dtw against
+        ArrayList<Double> accely = new ArrayList<Double>(); //Local recording to do dtw against
+        ArrayList<Double> accelz = new ArrayList<Double>(); //Local recording to do dtw against
+        double dtwx = 0;
+        double dtwy = 0;
+        double dtwz = 0;
+        int count = 0;
+        while(true) { // Simulate the Myo Accelerometer Listener
+            accelx.push(data['x']); // Simulate pushing Accelerometer Data to accelx from Myo
+            accely.push(data['y']); // Simulate pushing Accelerometer Data to accely from Myo
+            accelz.push(data['z']); // Simulate pushing Accelerometer Data to accelz from Myo
+            if(count % checkRate == 0 && count > 0) {
+                dtwx = dtw.compute(recaccelx.subList(0, count), accelx);
+                dtwy = dtw.compute(recaccely.subList(0, count), accely);
+                dtwz = dtw.compute(recaccelz.subList(0, count), accelz);
+                if(dtwx > passVal) {
+                    vibrate(); vibrate(); // Simulate a short and a medium vibration from Myo
+                    console.speak("You fucked up in the forward and backward direction");
+                } else if(dtwy > passVal) {
+                    vibrate(); vibrate(); // Simulate a short and a medium vibration from Myo
+                    console.speak("You fucked up in the left and right direction");
+                } else if(dtwz > passVal) {
+                    vibrate(); vibrate(); // Simulate a short and a medium vibration from Myo
+                    console.speak("You fucked up in the up and down direction");
+                }
+            }
+            if (count > recaccelx.length) {
+                while(false); // Simulate turning off myo accelerometer data
+                return true; // Returning True means that the user successfully completed the recording
+                passed++;
+            }
+            count++;
+        }
+        total++;
+        return false;
+    }
+    */
 }

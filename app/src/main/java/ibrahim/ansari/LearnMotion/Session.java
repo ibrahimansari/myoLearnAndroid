@@ -25,17 +25,14 @@ import butterknife.OnItemSelected;
 public class Session extends AppCompatActivity {
 
     @InjectView(R.id.button_record) Button mButtonRecord;
-
     @InjectView(R.id.chart) MyoLineChart mLineChart;
-
     @InjectView(R.id.chart_chooser) Spinner mSpinnerChartType;
+    @InjectView(R.id.button_save) Button mButtonSave;
+    @InjectView(R.id.button_compare) Button mButtonCompare;
 
     private ConnectionListener mConnectionListener;
-
     private MyoRecorder mRecorder;
-
     private long timestamp = 0;
-
     static Firebase mainRef = null;
 
     @Override
@@ -46,6 +43,9 @@ public class Session extends AppCompatActivity {
         ButterKnife.inject(this);
         Firebase.setAndroidContext(this);
         mainRef = new Firebase("https://myosport.firebaseio.com/duttaoindril/recordings");
+
+        mButtonSave.setEnabled(false);
+        mButtonCompare.setEnabled(false);
 
         Hub hub = Hub.getInstance();
          if (!hub.init(this)) {
@@ -87,8 +87,10 @@ public class Session extends AppCompatActivity {
         if (mRecorder.isRecording()) {
             timestamp = System.currentTimeMillis() - timestamp;
             stopRecording();
+            mButtonSave.setEnabled(true);
         } else {
             startRecording();
+            mButtonSave.setEnabled(false);
             timestamp = System.currentTimeMillis();
         }
     }
@@ -130,6 +132,17 @@ public class Session extends AppCompatActivity {
 
         pushRef.updateChildren(nameFB);
         pushRef.updateChildren(timeFB);
+
+        mButtonSave.setEnabled(false);
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.button_compare)
+    public void onClickCompare() {
+        mButtonSave.setEnabled(false);
+        onClickRecord();
+
+
     }
 
     @SuppressWarnings("unused")
