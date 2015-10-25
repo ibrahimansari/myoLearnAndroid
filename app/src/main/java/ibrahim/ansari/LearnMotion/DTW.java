@@ -12,7 +12,7 @@ public class DTW {
     protected int m;
     protected int K;
 
-    protected double warpingDistance;
+    public double warpingDistance;
 
     public DTW(double[] sample, double[] templete) {
         seq1 = sample;
