@@ -14,6 +14,9 @@ import com.thalmic.myo.Myo;
 import com.thalmic.myo.Quaternion;
 import com.thalmic.myo.Vector3;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -93,7 +96,7 @@ public class Session extends AppCompatActivity {
         double[] accelX = new double[mRecorder.getAccelerometerData().size()];
         double[] accelY = new double[mRecorder.getAccelerometerData().size()];
         double[] accelZ = new double[mRecorder.getAccelerometerData().size()];
-        double[] orient = new double[mRecorder.getOrientationData().size()];
+        double[] orient = new double[4];
 
         for (int i = 0; i < mRecorder.getAccelerometerData().size(); i++) {
             accelX[i] = mRecorder.getAccelerometerData().get(i).x();
@@ -105,11 +108,14 @@ public class Session extends AppCompatActivity {
         orient[2] = mRecorder.getOrientationData().get(0).y();
         orient[3] = mRecorder.getOrientationData().get(0).z();
 
-        data.setName("Test");
-        data.setAccelStreamx(accelX);
-        data.setAccelStreamy(accelY);
-        data.setAccelStreamz(accelZ);
-        data.setOrientationoffset(orient);
+        Map<String, double[]> dataFB = new HashMap<>();
+
+        dataFB.put("accelStreamx", accelX);
+        dataFB.put("accelStreamy", accelY);
+        dataFB.put("accelStreamz", accelZ);
+        dataFB.put("orientationoffset", orient);
+
+        mainRef.push().setValue(dataFB);
     }
 
     @SuppressWarnings("unused")
